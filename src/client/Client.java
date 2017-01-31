@@ -12,10 +12,10 @@ public class Client {
 
         BufferedReader inUser = new BufferedReader(new InputStreamReader(System.in));
 
-        Socket sck = new Socket(args[0], Integer.parseInt(args[1]));
+        Socket socket = new Socket(args[0], Integer.parseInt(args[1]));
 
-        DataOutputStream outServer = new DataOutputStream(sck.getOutputStream());
-        BufferedReader inServer = new BufferedReader(new InputStreamReader(sck.getInputStream()));
+        DataOutputStream outServer = new DataOutputStream(socket.getOutputStream());
+        BufferedReader inServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
         msg = inUser.readLine();
         outServer.writeBytes(msg + "\n");
@@ -23,6 +23,6 @@ public class Client {
         msgModified = inServer.readLine();
         System.out.println("FROM SERVER: " + msgModified);
 
-        sck.close();
+        socket.close();
     }
 }

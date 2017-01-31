@@ -6,7 +6,7 @@ public class Main {
         switch(args.length) {
             case 1:
                 try {
-                    server.Server.main(args);
+                    server.Server server = new server.Server(Integer.parseInt(args[0]));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
