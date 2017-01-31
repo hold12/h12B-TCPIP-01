@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="combined:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/combined_jar</output-path>
+    <root id="archive" name="combined.jar">
+      <element id="module-output" name="h12B-TCPIP-01" />
+    </root>
+  </artifact>
+</component>
