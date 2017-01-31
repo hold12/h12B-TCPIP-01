@@ -3,7 +3,7 @@ import java.io.*;
 import java.net.*;
 
 /**
- * Created by hold12 on 31-01-2017.
+ * Created by hold 12 on 31-01-2017.
  */
 public class Client {
     private Socket socket = null;
@@ -14,7 +14,7 @@ public class Client {
         System.out.println("Connecting to server. Please wait...");
         try {
             socket = new Socket(host, port);
-            System.out.println("Connected to server: " + socket.getLocalSocketAddress() + " on port " + socket.getLocalPort());
+            System.out.println("Connected to a server: " + socket.getLocalAddress() + " on port " + socket.getLocalPort());
             startConnection();
         } catch (UnknownHostException e) {
             System.out.println("Unknown host: " + e.getMessage());
@@ -25,12 +25,15 @@ public class Client {
         String msg = "";
         while(!quit(msg)) {
             try {
-                msg = console.readLine();
+                msg = console.readUTF();
                 streamOut.writeUTF(msg);
                 streamOut.flush();
             } catch (IOException e) {
                 e.getStackTrace();
             }
+            try {
+                System.out.println("FROM SERVER: " + console.readUTF());
+            } catch (IOException e) { e.getStackTrace(); }
         }
 
         stopConnection();
