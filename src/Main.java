@@ -5,17 +5,9 @@ public class Main {
     public static void main(String[] args) {
         switch(args.length) {
             case 1:
-                try {
-                    server.Server server = new server.Server(Integer.parseInt(args[0]));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                server.Server server = new server.Server(Integer.parseInt(args[0]));
             case 2:
-                try {
-                    client.Client.main(args);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                client.Client client = new client.Client(args[0], Integer.parseInt(args[1]));
         }
     }
 }

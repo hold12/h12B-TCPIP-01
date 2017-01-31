@@ -24,7 +24,7 @@ public class Server {
             boolean msgReceived = false;
             while (!msgReceived) {
                 try {
-                    String msg = streamIn.readLine();
+                    String msg = streamIn.readUTF();
                     System.out.println("Received: " + msg);
                     msgReceived = msg.equals("exit") || msg.equals("quit");
                 } catch (IOException e) {
