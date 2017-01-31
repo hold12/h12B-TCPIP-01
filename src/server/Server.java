@@ -6,46 +6,22 @@ import java.io.*;
 import java.net.*;
 
 public class Server {
-    private Socket socket = null;
-    private ServerSocket server = null;
-    private DataInputStream streamIn = null;
+    public static void main(String[] args) throws IOException {
+        String msg;
+        String msgModified;
+        ServerSocket server = new ServerSocket(Integer.parseInt(args[0]));
 
-    public Server(int port) {
-        try {
-            System.out.println("Binding to port " + port + ", please wait.");
-            server = new ServerSocket(port);
+        while(true) {
+            Socket connection = server.accept();
 
-            System.out.println("A server just started: " + server.getInetAddress() + " on port " + server.getLocalPort());
-            System.out.println("Waiting for a client...");
-            socket = server.accept();
+            BufferedReader inClient = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            DataOutputStream outClient = new DataOutputStream(connection.getOutputStream());
 
-            openStream();
+            msg = inClient.readLine();
+            System.out.println("Received " + msg);
 
-            boolean msgReceived = false;
-            while (!msgReceived) {
-                try {
-                    String msg = streamIn.readUTF();
-                    System.out.println("Received: " + msg);
-                    msgReceived = msg.equals("exit") || msg.equals("quit");
-                } catch (IOException e) {
-                    msgReceived = true;
-                }
-            }
-            closeStream();
+            msgModified = msg.toUpperCase() + "\n";
+            outClient.writeBytes(msgModified);
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void openStream() throws IOException {
-        if (socket == null)
-            return;
-        streamIn = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
-    }
-
-    private void closeStream() throws IOException {
-        if (socket != null)   socket.close();
-        if (streamIn != null) streamIn.close();
     }
 }
