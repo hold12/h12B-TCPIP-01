@@ -28,12 +28,10 @@ public class Client {
                 msg = console.readUTF();
                 streamOut.writeUTF(msg);
                 streamOut.flush();
+                System.out.println("FROM SERVER: " + console.readUTF());
             } catch (IOException e) {
                 e.getStackTrace();
             }
-            try {
-                System.out.println("FROM SERVER: " + console.readUTF());
-            } catch (IOException e) { e.getStackTrace(); }
         }
 
         stopConnection();
